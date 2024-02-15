@@ -38,10 +38,17 @@ export class UsersService {
     return this.userRepository.softDelete(id);
   }
 
-  async findOneByEmail(email: string){
+  async findOneByEmail(email: string) {
     const user = await this.userRepository.findOneBy({ email: email })
     if(user) {
       throw new BadRequestException("Email already register")
     } 
+    return user
+  }
+
+  async findOneByEmailWithPassword(email: string) {
+    const user = await this.userRepository.findOneBy({ email: email })
+    if(!user) throw new BadRequestException('Email is not registered')
+    return user
   }
 }
