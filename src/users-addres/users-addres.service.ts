@@ -1,11 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUsersAddreDto } from './dto/create-users-addre.dto';
 import { UpdateUsersAddreDto } from './dto/update-users-addre.dto';
+import { Repository } from 'typeorm';
+import { UsersAddre } from './entities/users-addre.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 
 @Injectable()
 export class UsersAddresService {
-  create(createUsersAddreDto: CreateUsersAddreDto) {
-    return 'This action adds a new usersAddre';
+
+  constructor(
+    @InjectRepository(UsersAddre) //Acordarse de injectar el repositorio (mas o menos 1 hora)
+    private readonly userRepository: Repository<UsersAddre>
+  ) {}
+
+  create(createUsersAddreDto: CreateUsersAddreDto, user: UserActiveInterface) {
+    return this.userRepository.save({
+      ...createUsersAddreDto,
+      userEmail: user.email
+    })
   }
 
   findAll() {
