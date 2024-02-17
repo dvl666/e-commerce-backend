@@ -2,14 +2,25 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { UsersAddresService } from './users-addres.service';
 import { CreateUsersAddreDto } from './dto/create-users-addre.dto';
 import { UpdateUsersAddreDto } from './dto/update-users-addre.dto';
+import { activeUser } from 'src/common/decorators/active.user.decorator';
+import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
+@Auth(Role.USER)
 @Controller('users-addres')
 export class UsersAddresController {
-  constructor(private readonly usersAddresService: UsersAddresService) {}
+  constructor(
+    private readonly usersAddresService: UsersAddresService
+  ) {}
 
   @Post()
-  create(@Body() createUsersAddreDto: CreateUsersAddreDto) {
-    return this.usersAddresService.create(createUsersAddreDto);
+  create(
+    @Body() createUsersAddreDto: CreateUsersAddreDto,
+    @activeUser() user: UserActiveInterface
+    ) {
+      console.log(createUsersAddreDto, user)
+    return this.usersAddresService.create(createUsersAddreDto, user);
   }
 
   @Get()
