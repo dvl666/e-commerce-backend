@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import e from 'express';
 
 @Injectable()
 export class UsersService {
@@ -14,7 +15,7 @@ export class UsersService {
   ){}
 
   create(createUserDto: CreateUserDto) {
-    this.findOneByEmail(createUserDto.email)
+    this.userEmailExist(createUserDto.email)
     return this.userRepository.save(createUserDto);
   }
 
@@ -38,7 +39,13 @@ export class UsersService {
     return this.userRepository.softDelete(id);
   }
 
-  async findOneByEmail(email: string) {
+  async findOneWithEmail(email: string){
+    const user = await this.userRepository.findOneBy({ email: email })
+    if(!user) throw new BadRequestException('Email not found')
+    return user
+  }
+
+  async userEmailExist(email: string) {
     const user = await this.userRepository.findOneBy({ email: email })
     if(user) {
       throw new BadRequestException("Email already register")
