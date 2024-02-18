@@ -7,7 +7,6 @@ import { UserActiveInterface } from 'src/common/interfaces/user.active.interface
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
 
-@Auth(Role.USER)
 @Controller('users-addres')
 export class UsersAddresController {
   constructor(
@@ -15,17 +14,20 @@ export class UsersAddresController {
   ) {}
 
   @Post()
+  @Auth(Role.USER)
   create(
     @Body() createUsersAddreDto: CreateUsersAddreDto,
     @activeUser() user: UserActiveInterface
-    ) {
-      console.log(createUsersAddreDto, user)
+  ) {
     return this.usersAddresService.create(createUsersAddreDto, user);
   }
 
-  @Get()
-  findAll() {
-    return this.usersAddresService.findAll();
+  @Get('addreses')
+  @Auth(Role.USER)
+  findAllUsersAddresBasesOnEmail(
+    @activeUser() user: UserActiveInterface
+  ) {
+    return this.usersAddresService.findAllUsersAddresBasesOnEmail(user);
   }
 
   @Get(':id')
@@ -34,12 +36,21 @@ export class UsersAddresController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUsersAddreDto: UpdateUsersAddreDto) {
-    return this.usersAddresService.update(+id, updateUsersAddreDto);
+  @Auth(Role.USER)
+  update(
+    @Param('id') id: string, 
+    @Body() updateUsersAddreDto: UpdateUsersAddreDto,
+    @activeUser() user: UserActiveInterface
+  ) {
+    return this.usersAddresService.update(+id, updateUsersAddreDto, user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersAddresService.remove(+id);
+  @Auth(Role.USER)
+  remove(
+    @Param('id') id: string,
+    @activeUser() user: UserActiveInterface
+  ) {
+    return this.usersAddresService.remove(+id, user);
   }
 }
