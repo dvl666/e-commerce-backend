@@ -21,7 +21,7 @@ export class CommunesService {
 
   findAll() {
     return this.communeRepository.find({
-      relations: ["region"]
+      relations: ["province"]
     });
   }
 
