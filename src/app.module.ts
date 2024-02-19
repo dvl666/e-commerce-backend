@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersAddresModule } from './users-addres/users-addres.module';
 import { RegionsModule } from './regions/regions.module';
+import { CommunesModule } from './communes/communes.module';
+import { ProvincesModule } from './provinces/provinces.module';
 
 @Module({
   imports: [
@@ -22,7 +24,9 @@ import { RegionsModule } from './regions/regions.module';
     UsersModule,
     AuthModule,
     UsersAddresModule,
-    RegionsModule
+    RegionsModule,
+    CommunesModule,
+    ProvincesModule
   ],
   controllers: [AppController],
   providers: [AppService],
