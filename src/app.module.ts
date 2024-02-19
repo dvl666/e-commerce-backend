@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersAddresModule } from './users-addres/users-addres.module';
 import { RegionsModule } from './regions/regions.module';
 import { CommunesModule } from './communes/communes.module';
+import { ProvincesModule } from './provinces/provinces.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { CommunesModule } from './communes/communes.module';
     AuthModule,
     UsersAddresModule,
     RegionsModule,
-    CommunesModule
+    CommunesModule,
+    ProvincesModule
   ],
   controllers: [AppController],
   providers: [AppService],
