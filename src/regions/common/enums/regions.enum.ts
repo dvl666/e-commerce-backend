@@ -1,0 +1,18 @@
+export enum Region {
+    ARICA_PARINACOTA = "Región de Arica y Parinacota",
+    TARAPACA = "Región de Tarapacá",
+    ANTOFAGASTA = "Región de Antofagasta",
+    ATACAMA = "Región de Atacama",
+    COQUIMBO = "Región de Coquimbo",
+    VALPARAISO = "Región de Valparaiso",
+    METROPOLITANA = "Región Metropolitana",
+    OHIGGINS = "Región de O'Higgins"    ,
+    MAULE = "Región del Maule",
+    ÑUBLE = "Región del Ñuble",
+    BIOBIO = "Región del Biobío",
+    ARAUCANIA = "Región de la Araucanía",
+    LOS_RIOS = "Región de los Ríos",
+    LOS_LAGOS = "Región de los Lagos",
+    AYSEN = "Región de Aysén",
+    MAGALLANES = "Región de Magallanes",
+}
