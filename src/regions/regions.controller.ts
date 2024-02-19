@@ -2,13 +2,21 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RegionsService } from './regions.service';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
+import { activeUser } from 'src/common/decorators/active.user.decorator';
+import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 
+@Auth(Role.ADMIN)
 @Controller('regions')
 export class RegionsController {
   constructor(private readonly regionsService: RegionsService) {}
 
   @Post()
-  create(@Body() createRegionDto: CreateRegionDto) {
+  create(
+    @Body() createRegionDto: CreateRegionDto,
+    @activeUser() user: UserActiveInterface
+    ) {
     return this.regionsService.create(createRegionDto);
   }
 
