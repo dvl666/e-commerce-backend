@@ -1,4 +1,4 @@
-import { Region } from "src/regions/entities/region.entity";
+import { Province } from "src/provinces/entities/province.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -8,9 +8,9 @@ export class Commune {
     id: number
 
     @Column({nullable: false})
-    name: string
+    commune: string
 
-    @ManyToOne(() => Region, (region) => region.name)
-    region: Region
+    @ManyToOne(() => Province, (province) => province.province)
+    province: Province
 
 }
