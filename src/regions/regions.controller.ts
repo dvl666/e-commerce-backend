@@ -39,4 +39,9 @@ export class RegionsController {
   remove(@Param('id') id: string) {
     return this.regionsService.remove(+id);
   }
+
+  @Get('getWithProvinces/:id')
+  findOneWithCommunes(@Param('id') id: number) {
+    return this.regionsService.findOneWithCommunes(id)
+  }
 }

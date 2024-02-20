@@ -1,6 +1,6 @@
 import { Commune } from "src/communes/entities/commune.entity";
+import { Province } from "src/provinces/entities/province.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Region as enumRegion } from "../common/enums/regions.enum";
 
 @Entity()
 export class Region {
@@ -14,7 +14,7 @@ export class Region {
     @Column()
     abbreviation: string
 
-    // @OneToMany(() => Commune, (commune) => commune.name)
-    // commune: Commune[]
+    @OneToMany((type) => Province, (province) => province.region)
+    provinces: Province[]
 
 }

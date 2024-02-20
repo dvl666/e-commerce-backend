@@ -31,4 +31,11 @@ export class ProvincesController {
   remove(@Param('id') id: string) {
     return this.provincesService.remove(+id);
   }
+
+  @Get('getwhitcommunes/:id') 
+  findOneWithCommunes(
+    @Param('id') id: number
+  ){
+    return this.provincesService.findOneWithCommunes(id);
+  }
 }
