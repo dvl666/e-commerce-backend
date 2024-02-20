@@ -39,4 +39,14 @@ export class RegionsService {
     await this.findOne(id)
     return this.regionRepository.delete(id)
   }
+
+  async findOneWithCommunes(regionId: number) {
+    console.log(regionId)
+    await this.findOne(regionId)
+    const region = await this.regionRepository.createQueryBuilder("region")
+      .leftJoinAndSelect("region.provinces", "province")
+      .where("region.id = :id", { id: regionId })
+      .getOne()
+    return region
+  }
 }
