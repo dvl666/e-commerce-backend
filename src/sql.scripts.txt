@@ -1,23 +1,23 @@
-INSERT INTO `region` (`id`,`name`,`abbreviation`)
+INSERT INTO
+    `region` (`id`, `name`, `abbreviation`)
 VALUES
-	(1,'Región de Arica y Parinacota','AP'),
-	(2,'Región de Tarapacá','TA','Iquique'),
-	(3,'Región de Antofagasta','AN'),
-	(4,'Región de Atacama','AT'),
-	(5,'Región de Coquimbo','CO'),
-	(6,'Región de Valparaiso','VA'),
-	(7,'Región de Metropolitana','RM'),
-	(8,'Región de O'Higgins','OH'),
-	(9,'Región del Maule','MA'),
-	(10,'Región de Ñuble','NB'),
-	(11,'Región del Biobío','BI'),
-	(12,'Región de la Araucanía','IAR'),
-	(13,'Región de los Ríos','LR'),
-	(14,'Región de los Lagos','LL'),
-	(15,'Región de Aysén','AI'),
-	(16,'Región de Magallanes','MG');
+    (1, 'Región de Arica y Parinacota', 'AP'),
+    (2, 'Región de Tarapacá', 'TA'),
+    (3, 'Región de Antofagasta', 'AN'),
+    (4, 'Región de Atacama', 'AT'),
+    (5, 'Región de Coquimbo', 'CO'),
+    (6, 'Región de Valparaiso', 'VA'),
+    (7, 'Región de Metropolitana', 'RM'),
+    (9, 'Región del Maule', 'MA'),
+    (10, 'Región de Ñuble', 'NB'),
+    (11, 'Región del Biobío', 'BI'),
+    (12, 'Región de la Araucanía', 'IAR'),
+    (13, 'Región de los Ríos', 'LR'),
+    (14, 'Región de los Lagos', 'LL'),
+    (15, 'Región de Aysén', 'AI'),
+    (16, 'Región de Magallanes', 'MG');
 
-INSERT INTO `province` (`id`,`provincia`,`regionId`)
+INSERT INTO `province` (`id`,`name`,`regionId`)
 VALUES
 	(1,'Arica',1),
 	(2,'Parinacota',1),
@@ -46,8 +46,6 @@ VALUES
 	(25,'Maipo',7),
 	(26,'Melipilla',7),
 	(27,'Talagante',7),
-	(28,'Cachapoal',8),
-	(29,'Colchagua',8),
 	(30,'Cardenal Caro',8),
 	(31,'Curicó',9),
 	(32,'Talca',9),
