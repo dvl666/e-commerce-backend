@@ -8,9 +8,9 @@ export class Commune {
     id: number
 
     @Column({nullable: false})
-    commune: string
+    name: string
 
-    @ManyToOne(() => Province, (province) => province.province)
+    @ManyToOne((type) => Province, (province) => province.communes)
     province: Province
 
 }
