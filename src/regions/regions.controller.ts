@@ -40,7 +40,7 @@ export class RegionsController {
     return this.regionsService.remove(+id);
   }
 
-  @Get('getone/:id')
+  @Get('getWithProvinces/:id')
   findOneWithCommunes(@Param('id') id: number) {
     return this.regionsService.findOneWithCommunes(id)
   }

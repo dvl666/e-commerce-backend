@@ -14,7 +14,7 @@ export class Province {
     @ManyToOne((type) => Region, (region) => region.provinces)
     region: Region
 
-    @OneToMany((type) => Commune, (commune) => commune.id)
+    @OneToMany((type) => Commune, (commune) => commune.province)
     communes: Commune[]
 
 }
