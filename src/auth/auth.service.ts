@@ -24,15 +24,13 @@ export class AuthService {
         }   
     }
 
-    async register({ username, email, password }: RegisterDto) {
+    async register({email, password }: RegisterDto) {
         await this.usersService.userEmailExist(email)
         await this.usersService.create({
-            username,
             email,
             password: await bcryptjs.hash(password, 10)
         })
         return {
-            username,
             email
         }
     }
