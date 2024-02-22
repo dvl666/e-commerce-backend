@@ -4,7 +4,7 @@ import { SingInDto } from './dto/signin.dto';
 import { RegisterDto } from './dto/register.dto';
 import { Role } from 'src/common/enums/role.enum';
 import { Auth } from 'src/auth/decorators/auth.decorator';
-import { activeUser } from 'src/common/decorators/active.user.decorator';
+import { ActiveUser } from 'src/common/decorators/active.user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 
 @Controller('auth')
@@ -30,7 +30,7 @@ export class AuthController {
   @Get('profile')
   @Auth(Role.ADMIN)
   getProfile(
-      @activeUser() user: UserActiveInterface
+      @ActiveUser() user: UserActiveInterface
   ) {
     return this.authService.getProfile(user);
   }

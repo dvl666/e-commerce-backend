@@ -2,14 +2,23 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
+import { ActiveUser } from 'src/common/decorators/active.user.decorator';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
+@Auth(Role.USER)
 @Controller('profiles')
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
   @Post()
-  create(@Body() createProfileDto: CreateProfileDto) {
-    return this.profilesService.create(createProfileDto);
+  create(
+    @Body() createProfileDto: CreateProfileDto,
+    @ActiveUser() user: UserActiveInterface
+    ) {
+      console.log('hola',user)
+    return this.profilesService.create(createProfileDto, user);
   }
 
   @Get()
@@ -23,12 +32,19 @@ export class ProfilesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
-    return this.profilesService.update(+id, updateProfileDto);
+  update(
+      @Param('id') id: string, 
+      @Body() updateProfileDto: UpdateProfileDto,
+      @ActiveUser() user: UserActiveInterface
+    ) {
+    return this.profilesService.update(+id, updateProfileDto, user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.profilesService.remove(+id);
+  remove(
+      @Param('id') id: string,
+      @ActiveUser() user: UserActiveInterface
+    ) {
+    return this.profilesService.remove(+id, user);
   }
 }
