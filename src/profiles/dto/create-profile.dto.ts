@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsEmail, IsOptional, IsString } from "class-validator";
 
 export class CreateProfileDto {
 
@@ -10,5 +10,9 @@ export class CreateProfileDto {
 
     @IsString()
     rut: string
+
+    @IsEmail()
+    @IsOptional()
+    userEmail?: string
 
 }

@@ -4,7 +4,7 @@ import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
-import { activeUser } from 'src/common/decorators/active.user.decorator';
+import { ActiveUser } from 'src/common/decorators/active.user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 
 @Auth(Role.ADMIN)
@@ -15,7 +15,7 @@ export class RegionsController {
   @Post()
   create(
     @Body() createRegionDto: CreateRegionDto,
-    @activeUser() user: UserActiveInterface
+    @ActiveUser() user: UserActiveInterface
     ) {
     return this.regionsService.create(createRegionDto);
   }
