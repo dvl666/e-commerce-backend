@@ -15,9 +15,11 @@ export class ProfilesService {
   ) {}
 
   async create(createProfileDto: CreateProfileDto, {email, role}: UserActiveInterface) {
+    const profileExistenceBool = await this.validateProfileExistence(email)
+    if(profileExistenceBool === true) throw new BadRequestException('You already have a profile')
     return await this.profileRepository.save({
       ...createProfileDto,
-      userEmail: email
+      user: { email: email }
     })
   }
 
@@ -32,12 +34,11 @@ export class ProfilesService {
   }
 
   async update(id: number, updateProfileDto: UpdateProfileDto, {email, role}: UserActiveInterface) {
-    console.log(email, role)
     const profile = await this.findOne(id);
     this.validateProfileProperty(profile, email)
     return this.profileRepository.update(id, {
       ...updateProfileDto,
-      userEmail: email
+      user: { email: email }
     });
   }
 
@@ -48,7 +49,21 @@ export class ProfilesService {
   }
 
   async validateProfileProperty(profile: Profile, email: string) {
-    if(profile.userEmail === email) throw new UnauthorizedException('No authorizated')
+    if(profile.user.email === email) throw new UnauthorizedException('No authorizated')
+  }
+
+  async findOneByEmail(email: string) {
+    const profile = await this.profileRepository.findOne({
+      where: { user: { email } },
+      relations: ['user']
+    })
+    if(!profile) return null;
+    return profile
+  }
+
+  async validateProfileExistence(email: string) {
+    const profile = await this.findOneByEmail(email)
+    if(profile) return true
   }
 
 }
