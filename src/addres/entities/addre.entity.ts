@@ -12,8 +12,11 @@ export class Addre {
     // commune: string
 
     @ManyToOne((type) => Commune)
-    @JoinColumn({ name: 'addresCommune', referencedColumnName: 'name' })
+    @JoinColumn({ name: 'communeName', referencedColumnName: 'name' })
     commune: Commune
+
+    @Column()
+    communeName: string
 
     @Column({ nullable: false })
     addres: string
@@ -22,7 +25,10 @@ export class Addre {
     postalCode: number
 
     @ManyToOne((type) => Profile)
-    @JoinColumn({ name:'userEmail', referencedColumnName: 'user' })
+    @JoinColumn({ name:'userEmail', referencedColumnName: 'userEmail' })
     profile: Profile
+
+    @Column()
+    userEmail: string
 
 }

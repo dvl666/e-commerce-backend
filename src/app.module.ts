@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { UsersAddresModule } from './users-addres/users-addres.module';
 import { RegionsModule } from './regions/regions.module';
 import { CommunesModule } from './communes/communes.module';
 import { ProvincesModule } from './provinces/provinces.module';
@@ -25,7 +24,6 @@ import { AddresModule } from './addres/addres.module';
     }),
     UsersModule,
     AuthModule,
-    UsersAddresModule,
     RegionsModule,
     CommunesModule,
     ProvincesModule,

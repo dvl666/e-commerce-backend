@@ -18,8 +18,8 @@ export class AddresService {
   async create(createAddreDto: CreateAddreDto, user: UserActiveInterface) {
     return await this.addreRepository.save({
       ...createAddreDto,
-      commune: { name: createAddreDto.commune },
-      profile: { user: { email: user.email} }
+      communeName: createAddreDto.communeName,
+      userEmail: user.email
     });
   }
 
@@ -32,9 +32,9 @@ export class AddresService {
   //         }
   //       }
   //     },
-  //     relations: [ 'commune', 'profile.user' ]
+  //     relations: [ 'commune' ]
   //   });
-  //   if(!addresses) throw new NotFoundError('Not found')
+  //   if(!addresses) throw new BadRequestException('Not found')
   //   return addresses;
   // }
 
@@ -42,25 +42,39 @@ export class AddresService {
     const addresses = await this.addreRepository.find({
       where: {
         profile: {
-          user: {
-            email: user.email
-          }
+          userEmail: user.email
         }
       },
-      relations: [ 'commune', 'profile.user' ]
+      relations: [ 'commune', 'profile' ]
     });
     if(!addresses) throw new BadRequestException('Not found')
-    const addressesMapped = mapAddressResults(addresses);
-    return addressesMapped
+    return addresses;
   }
+
+
+  // async findAllUserAddres(user: UserActiveInterface) {
+  //   const addresses = await this.addreRepository.find({
+  //     where: {
+  //       profile: {
+  //         user: {
+  //           email: user.email
+  //         }
+  //       }
+  //     },
+  //     relations: [ 'commune', 'profile.user' ]
+  //   });
+  //   if(!addresses) throw new BadRequestException('Not found')
+  //   const addressesMapped = mapAddressResults(addresses);
+  //   return addressesMapped
+  // }
 
   async findOne(id: number, user: UserActiveInterface) {
     const addre = await this.addreRepository.findOne({
       where: { id: id },
-      relations: [ 'profile.user', 'commune' ]
+      relations: ['commune', 'profile' ]
     });
     if(!addre) throw new BadRequestException('Not found')
-    await this.validateUserProperty(addre.profile.user.email, user)
+    await this.validateUserProperty(addre.userEmail, user)
     return addre
   }
 
@@ -68,7 +82,7 @@ export class AddresService {
     await this.findOne(id, user)
     return await this.addreRepository.update(id, {
       ...updateAddreDto,
-      commune: { name: updateAddreDto.commune },
+      communeName: updateAddreDto.communeName ,
       // profile: {  }
       postalCode: updateAddreDto.postalCode
     })
