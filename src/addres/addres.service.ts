@@ -45,7 +45,7 @@ export class AddresService {
           userEmail: user.email
         }
       },
-      relations: [ 'commune', 'profile' ]
+      relations: ['profile' ]
     });
     if(!addresses) throw new BadRequestException('Not found')
     return addresses;
