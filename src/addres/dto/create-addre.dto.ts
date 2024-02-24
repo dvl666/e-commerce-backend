@@ -2,11 +2,14 @@ import { IsInt, IsOptional, IsString, isString } from "class-validator";
 
 export class CreateAddreDto {
 
-    @IsString()
-    commune: string
+    // @IsString()
+    // commune: string
 
     @IsString()
     addres: string
+
+    @IsString()
+    communeName
 
     @IsInt()
     @IsOptional()
