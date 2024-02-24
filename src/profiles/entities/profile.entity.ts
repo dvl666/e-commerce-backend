@@ -20,4 +20,7 @@ export class Profile {
     @JoinColumn({ name: 'userEmail', referencedColumnName: 'email', })
     user: User
 
+    @Column()
+    userEmail: string
+
 }
