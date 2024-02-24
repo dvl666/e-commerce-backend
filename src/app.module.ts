@@ -9,6 +9,7 @@ import { CommunesModule } from './communes/communes.module';
 import { ProvincesModule } from './provinces/provinces.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { AddresModule } from './addres/addres.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { AddresModule } from './addres/addres.module';
     CommunesModule,
     ProvincesModule,
     ProfilesModule,
-    AddresModule
+    AddresModule,
+    ProductsModule
   ],
   controllers: [AppController],
   providers: [AppService],
