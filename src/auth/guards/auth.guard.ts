@@ -13,9 +13,9 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    console.log(request)
+    // console.log(request)
     const token = this.extractTokenFromHeader(request);
-    console.log(token)
+    // console.log(token)
     if(!token) throw new UnauthorizedException('You are not authorized');
     try {
       const payload = await this.jwtService.verifyAsync(
@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
     } catch {
       throw new UnauthorizedException('You are not authorized');
     };
-    return true;
+    return true; 
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

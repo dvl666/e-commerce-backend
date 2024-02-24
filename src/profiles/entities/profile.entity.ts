@@ -18,6 +18,6 @@ export class Profile {
 
     @OneToOne((type) => User)
     @JoinColumn({ name: 'userEmail', referencedColumnName: 'email', })
-    userEmail: string
+    user: User
 
 }
