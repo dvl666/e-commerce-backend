@@ -24,7 +24,7 @@ export class ProductsService {
 
   async findAllWithInventory() {
     return await this.productRepository.find({
-      relations: ['inventory'] 
+      relations: ['inventory', 'category'] 
     })
   }
 
