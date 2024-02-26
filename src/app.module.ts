@@ -34,7 +34,7 @@ import { InventoryModule } from './inventory/inventory.module';
     AddresModule,
     ProductsModule,
     SizesModule,
-    // InventoryModule
+    InventoryModule
   ],
   controllers: [AppController],
   providers: [AppService],
