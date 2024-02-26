@@ -12,6 +12,7 @@ import { AddresModule } from './addres/addres.module';
 import { ProductsModule } from './products/products.module';
 import { SizesModule } from './sizes/sizes.module';
 import { InventoryModule } from './inventory/inventory.module';
+import { ProductCategoryModule } from './product-category/product-category.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { InventoryModule } from './inventory/inventory.module';
     AddresModule,
     ProductsModule,
     SizesModule,
-    InventoryModule
+    InventoryModule,
+    ProductCategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

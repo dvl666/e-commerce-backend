@@ -1,5 +1,6 @@
 import { Inventory } from "src/inventory/entities/inventory.entity";
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ProductCategory } from "src/product-category/entities/product-category.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -16,11 +17,17 @@ export class Product {
     @Column({ nullable: false })
     price: number
 
-    @Column({ default: 'not implement' })
-    category: string
-
+    
     @OneToMany((type) => Inventory, (inventory) => inventory.product)
     inventory: Inventory[]
+
+    @ManyToOne((type) => ProductCategory, (category) => category.category)
+    @JoinColumn({ name: 'categoryName', referencedColumnName: 'category' })
+    category: string
+    // @OneToMany((type) => ProductCategory, (category) => category.category)
+    // @JoinColumn({ name: 'category', referencedColumnName: 'category' })
+    // @Column({ default: 'not implement' })
+    // category: string
     
 
 }
