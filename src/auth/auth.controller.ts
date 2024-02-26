@@ -6,7 +6,10 @@ import { Role } from 'src/common/enums/role.enum';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ActiveUser } from 'src/common/decorators/active.user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auth')
+@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
   constructor(

@@ -7,7 +7,10 @@ import { Role } from 'src/common/enums/role.enum';
 import { ActiveUser } from 'src/common/decorators/active.user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 import { userInfo } from 'os';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Addreses')
+@ApiBearerAuth()
 @Controller('addres')
 export class AddresController {
   constructor(private readonly addresService: AddresService) {}
