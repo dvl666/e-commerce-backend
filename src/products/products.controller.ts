@@ -23,7 +23,7 @@ export class ProductsController {
   // @Auth(Role.USER)
   @Get()
   findAll() {
-    return this.productsService.findAll();
+    return this.productsService.findAllWithInventory();
   }
 
   // @Auth(Role.USER)
