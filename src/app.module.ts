@@ -10,6 +10,8 @@ import { ProvincesModule } from './provinces/provinces.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { AddresModule } from './addres/addres.module';
 import { ProductsModule } from './products/products.module';
+import { SizesModule } from './sizes/sizes.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -30,7 +32,9 @@ import { ProductsModule } from './products/products.module';
     ProvincesModule,
     ProfilesModule,
     AddresModule,
-    ProductsModule
+    ProductsModule,
+    SizesModule,
+    InventoryModule
   ],
   controllers: [AppController],
   providers: [AppService],
