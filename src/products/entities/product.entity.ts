@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Inventory } from "src/inventory/entities/inventory.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -17,5 +18,8 @@ export class Product {
 
     @Column({ default: 'not implement' })
     category: string
+
+    // @OneToMany((type) => Inventory, (inventory) => inventory.)
+    // @JoinColumn
 
 }
