@@ -16,7 +16,6 @@ export class Product {
 
     @Column({ nullable: false })
     price: number
-
     
     @OneToMany((type) => Inventory, (inventory) => inventory.product)
     inventory: Inventory[]
@@ -24,10 +23,5 @@ export class Product {
     @ManyToOne((type) => ProductCategory, (category) => category.category)
     @JoinColumn({ name: 'categoryName', referencedColumnName: 'category' })
     category: string
-    // @OneToMany((type) => ProductCategory, (category) => category.category)
-    // @JoinColumn({ name: 'category', referencedColumnName: 'category' })
-    // @Column({ default: 'not implement' })
-    // category: string
-    
 
 }
