@@ -3,6 +3,15 @@ import { IsEmail, IsString, MinLength } from "class-validator"
 
 export class RegisterDto {
 
+    @IsString()
+    name: string
+
+    @IsString()
+    lastName: string
+
+    @IsString()
+    rut: string
+
     @IsEmail()
     email: string
 

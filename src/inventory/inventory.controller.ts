@@ -4,7 +4,10 @@ import { CreateInventoryDto } from './dto/create-inventory.dto';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
 import { Role } from 'src/common/enums/role.enum';
 import { Auth } from 'src/auth/decorators/auth.decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Inventory')
+@ApiBearerAuth()
 @Auth(Role.ADMIN)
 @Controller('inventory')
 export class InventoryController {

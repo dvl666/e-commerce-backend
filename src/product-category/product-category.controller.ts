@@ -1,8 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { ProductCategoryService } from './product-category.service';
 import { CreateProductCategoryDto } from './dto/create-product-category.dto';
 import { UpdateProductCategoryDto } from './dto/update-product-category.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
+@ApiTags('Product Category')
+@ApiBearerAuth()
+@Auth(Role.ADMIN)
 @Controller('product-category')
 export class ProductCategoryController {
   constructor(private readonly productCategoryService: ProductCategoryService) {}
@@ -14,7 +20,7 @@ export class ProductCategoryController {
 
   @Get()
   findAll() {
-    return this.productCategoryService.findAll();
+    return this.productCategoryService.findAll()
   }
 
   @Get(':id')

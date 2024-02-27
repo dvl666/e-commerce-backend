@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Addre } from './entities/addre.entity';
 import { Repository } from 'typeorm';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
-import { mapAddressResults } from 'src/common/mappers/addres.mapper';
 
 @Injectable()
 export class AddresService {
@@ -23,58 +22,26 @@ export class AddresService {
     });
   }
 
-  // async findAllUserAddres(user: UserActiveInterface) {
-  //   const addresses = await this.addreRepository.find({
-  //     where: {
-  //       profile: {
-  //         user: {
-  //           email: user.email
-  //         }
-  //       }
-  //     },
-  //     relations: [ 'commune' ]
-  //   });
-  //   if(!addresses) throw new BadRequestException('Not found')
-  //   return addresses;
-  // }
-
   async findAllUserAddres(user: UserActiveInterface) {
     const addresses = await this.addreRepository.find({
       where: {
-        profile: {
-          userEmail: user.email
+        user: {
+          email: user.email
         }
       },
-      relations: ['profile' ]
+      relations: ['user']
     });
     if(!addresses) throw new BadRequestException('Not found')
     return addresses;
   }
 
-
-  // async findAllUserAddres(user: UserActiveInterface) {
-  //   const addresses = await this.addreRepository.find({
-  //     where: {
-  //       profile: {
-  //         user: {
-  //           email: user.email
-  //         }
-  //       }
-  //     },
-  //     relations: [ 'commune', 'profile.user' ]
-  //   });
-  //   if(!addresses) throw new BadRequestException('Not found')
-  //   const addressesMapped = mapAddressResults(addresses);
-  //   return addressesMapped
-  // }
-
   async findOne(id: number, user: UserActiveInterface) {
     const addre = await this.addreRepository.findOne({
       where: { id: id },
-      relations: ['commune', 'profile' ]
+      relations: [ 'user' ]
     });
     if(!addre) throw new BadRequestException('Not found')
-    await this.validateUserProperty(addre.userEmail, user)
+    await this.validateUserProperty(addre.user.email, user)
     return addre
   }
 
@@ -83,7 +50,6 @@ export class AddresService {
     return await this.addreRepository.update(id, {
       ...updateAddreDto,
       communeName: updateAddreDto.communeName ,
-      // profile: {  }
       postalCode: updateAddreDto.postalCode
     })
   }

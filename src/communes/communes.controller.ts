@@ -4,7 +4,10 @@ import { CreateCommuneDto } from './dto/create-commune.dto';
 import { UpdateCommuneDto } from './dto/update-commune.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Communes')
+@ApiBearerAuth()
 @Auth(Role.ADMIN)
 @Controller('communes')
 export class CommunesController {
