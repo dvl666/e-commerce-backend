@@ -20,7 +20,7 @@ export class ProductCategoryService {
 
   async findAll() {
     const categories = await this.productCategoryRepository.find()
-    if(!categories) throw new NotFoundException('We currently have no registered categories.')
+    if(categories.length === 0) throw new NotFoundException('We dont have categories yet')
     return this.productCategoryRepository.find()
   }
 
@@ -35,9 +35,10 @@ export class ProductCategoryService {
   async update(id: number, updateProductCategoryDto: UpdateProductCategoryDto) {
     await this.findOne(id);
     await this.validateCategoryName(updateProductCategoryDto.category)
-    return await this.productCategoryRepository.update(id, {
+    await this.productCategoryRepository.update(id, {
       ...updateProductCategoryDto
     });
+    return 'Category has been updated'
   }
 
   async remove(id: number) {
@@ -52,4 +53,13 @@ export class ProductCategoryService {
     });
     if(category) throw new NotAcceptableException('Category with this name already exist')
   }
+
+  async findOneByName(name: string) {
+    const category = await this.productCategoryRepository.findOne({
+      where: { category: name }
+    })
+    if(!category) throw new NotFoundException('We dont have a category with that name')
+    return
+  }
+
 }
