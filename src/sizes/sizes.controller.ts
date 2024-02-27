@@ -4,8 +4,6 @@ import { CreateSizeDto } from './dto/create-size.dto';
 import { UpdateSizeDto } from './dto/update-size.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
-import { ActiveUser } from 'src/common/decorators/active.user.decorator';
-import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Sizes')
@@ -18,7 +16,6 @@ export class SizesController {
   @Post()
   create(
       @Body() createSizeDto: CreateSizeDto,
-      @ActiveUser() user: UserActiveInterface
     ) {
     return this.sizesService.create(createSizeDto);
   }
@@ -26,7 +23,6 @@ export class SizesController {
   @Auth(Role.ADMIN)
   @Get()
   findAll(
-      @ActiveUser() user: UserActiveInterface
   ) {
     return this.sizesService.findAll();
   }
@@ -35,7 +31,6 @@ export class SizesController {
   @Get(':id')
   findOne(
       @Param('id') id: string,
-      @ActiveUser() user: UserActiveInterface
     ) {
     return this.sizesService.findOne(+id);
   }
@@ -45,7 +40,6 @@ export class SizesController {
   update(
       @Param('id') id: string, 
       @Body() updateSizeDto: UpdateSizeDto,
-      @ActiveUser() user: UserActiveInterface
     ) {
     return this.sizesService.update(+id, updateSizeDto);
   }
@@ -54,7 +48,6 @@ export class SizesController {
   @Delete(':id')
   remove(
     @Param('id') id: string,
-    @ActiveUser() user: UserActiveInterface
   ) {
     return this.sizesService.remove(+id);
   }
