@@ -1,14 +1,14 @@
 import { Addre } from "src/addres/entities/addre.entity";
 
 export function mapAddressResults(addresses: Addre[]) {
-    const uniqueProfile = addresses.length > 0 ? mapProfile(addresses[0].profile) : null;
+    const uniqueProfile = addresses.length > 0 ? mapProfile(addresses[0].user) : null;
   
     const mappedAddresses = addresses.map(address => ({
       id: address.id,
       addres: address.addres,
       postalCode: address.postalCode,
       commune: address.commune,
-      userEmail: address.profile?.user?.email,
+      userEmail: address.user?.email,
     }));
   
     return [
