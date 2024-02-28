@@ -12,6 +12,7 @@ import { UserActiveInterface } from 'src/common/interfaces/user.active.interface
 @ApiBearerAuth()
 @Controller('users')
 export class UsersController {
+
   constructor(private readonly usersService: UsersService) {}
   
   @Post()
@@ -30,12 +31,15 @@ export class UsersController {
   findMyUser(
     @ActiveUser() user: UserActiveInterface
   ) {
-    return this.usersService.findMyUser(user)
+    return this.usersService.findOne(user.userId, user)
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.usersService.findOne(+id);
+  findOne(
+    @Param('id') id: number,
+    @ActiveUser() user: UserActiveInterface
+  ) {
+    return this.usersService.findOne(+id, user);
   }
 
   @Auth(Role.USER)

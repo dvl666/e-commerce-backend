@@ -20,7 +20,7 @@ export class AddresService {
     return await this.addreRepository.save({
       ...createAddreDto,
       communeName: createAddreDto.communeName,
-      user: await this.userService.findOneWithEmail(user.email)
+      user: await this.userService.findOne(user.userId, user)
     });
   }
 
@@ -28,12 +28,12 @@ export class AddresService {
     const addresses = await this.addreRepository.find({
       where: {
         user: {
-          email: user.email
+          id: user.userId
         }
       },
       relations: ['user']
     });
-    if(!addresses) throw new BadRequestException('Not found')
+    if(addresses.length === 0) throw new BadRequestException('Not found')
     return addresses;
   }
 
@@ -43,7 +43,7 @@ export class AddresService {
       relations: [ 'user' ]
     });
     if(!addre) throw new BadRequestException('Not found')
-    await this.validateUserProperty(addre.user.email, user)
+    await this.validateUserProperty(addre.user.id, user)
     return addre
   }
 
@@ -62,8 +62,8 @@ export class AddresService {
     return 'Addres deleted'
   }
 
-  async validateUserProperty(addresEmail: string, user: UserActiveInterface) {
-    if(addresEmail !== user.email) throw new UnauthorizedException('Not authorized');
+  async validateUserProperty(addresUserId: number, user: UserActiveInterface) {
+    if(addresUserId !== user.userId) throw new UnauthorizedException('Not authorized');
     return
   }
 

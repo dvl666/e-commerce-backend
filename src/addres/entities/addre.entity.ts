@@ -22,7 +22,7 @@ export class Addre {
     postalCode: number
 
     @ManyToOne((type) => User, (user) => user.addresses, { onUpdate: 'CASCADE' })
-    @JoinColumn({ name: 'userEmail', referencedColumnName: 'email' })
+    @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
     user: User
 
 }

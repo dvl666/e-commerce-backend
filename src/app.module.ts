@@ -7,7 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { RegionsModule } from './regions/regions.module';
 import { CommunesModule } from './communes/communes.module';
 import { ProvincesModule } from './provinces/provinces.module';
-import { ProfilesModule } from './profiles/profiles.module';
 import { AddresModule } from './addres/addres.module';
 import { ProductsModule } from './products/products.module';
 import { SizesModule } from './sizes/sizes.module';
@@ -31,7 +30,6 @@ import { ProductCategoryModule } from './product-category/product-category.modul
     RegionsModule,
     CommunesModule,
     ProvincesModule,
-    ProfilesModule,
     AddresModule,
     ProductsModule,
     SizesModule,
