@@ -37,7 +37,6 @@ export class AddresController {
       @Param('id') id: string,
       @ActiveUser() user: UserActiveInterface
     ) {
-    console.log(user)  
     return this.addresService.findOne(+id, user);
   }
 
