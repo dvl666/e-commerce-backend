@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 
 @Injectable()
 export class UsersService {
@@ -21,6 +22,10 @@ export class UsersService {
 
   findAll() {
     return this.userRepository.find();
+  }
+
+  async findMyUser(user: UserActiveInterface) {
+    return await this.findOneWithEmail(user.email)
   }
 
   findOne(id: number) {
@@ -56,7 +61,7 @@ export class UsersService {
   async findOneByEmailWithPassword(email: string) {
     const user = await this.userRepository.findOne({
       where: { email: email },
-      select: [ 'id', 'name', 'lastName', 'rut', 'email', 'password', 'rut' ]
+      select: [ 'id', 'name', 'lastName', 'rut', 'email', 'password', 'rut', 'role' ]
     })
     if(!user) throw new BadRequestException('Email is not registered')
     return user

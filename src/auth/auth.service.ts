@@ -19,6 +19,7 @@ export class AuthService {
         const isValidPassword = await bcryptjs.compare(password, user.password)
         if(!isValidPassword) throw new UnauthorizedException('Password is wrong')
         const payload = { email: user.email, role: user.role }
+        console.log(payload)
         return {
             access_token: await this.jwtService.signAsync(payload)
         }   

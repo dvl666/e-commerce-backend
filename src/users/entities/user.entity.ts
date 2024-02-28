@@ -1,5 +1,6 @@
+import { Addre } from "src/addres/entities/addre.entity";
 import { Role } from "src/common/enums/role.enum";
-import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -24,6 +25,9 @@ export class User {
 
     @Column({ type: 'enum', default: Role.USER, enum:Role })
     role: string
+
+    @OneToMany((type) => Addre, (addres) => addres.user, { cascade: true })
+    addresses: Addre[]
 
     @DeleteDateColumn()
     deletedAT: Date
