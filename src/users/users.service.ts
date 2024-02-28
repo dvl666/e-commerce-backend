@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import e from 'express';
+import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
+import { Role } from 'src/common/enums/role.enum';
 
 @Injectable()
 export class UsersService {
@@ -16,6 +17,7 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto) {
     this.userEmailExist(createUserDto.email)
+    this.userRutExist(createUserDto.rut)
     return this.userRepository.save(createUserDto);
   }
 
@@ -23,8 +25,13 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return this.userRepository.findOneBy({id});
+  async findOne(id: number, jwtUser: UserActiveInterface) {
+    const user: User = await this.userRepository.findOne({
+      where: { id: id }
+    })
+    if(!user) throw new NotFoundException('Not found any user')
+    if(user.id !== jwtUser.userId) throw new UnauthorizedException('Not authorized')
+    return user
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -54,8 +61,20 @@ export class UsersService {
   }
 
   async findOneByEmailWithPassword(email: string) {
-    const user = await this.userRepository.findOneBy({ email: email })
+    const user = await this.userRepository.findOne({
+      where: { email: email },
+      select: [ 'id', 'name', 'lastName', 'rut', 'email', 'password', 'rut', 'role' ]
+    })
     if(!user) throw new BadRequestException('Email is not registered')
     return user
   }
+
+  async userRutExist(rut: string) {
+    const user = await this.userRepository.findOneBy({
+        rut: rut 
+    })
+    if(user) throw new NotAcceptableException('Rut already been used')
+    return user
+  }
+
 }

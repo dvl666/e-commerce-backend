@@ -30,12 +30,12 @@ export class AuthController {
     return this.authService.register(registerDto)
   }
   
-  @Get('profile')
-  @Auth(Role.ADMIN)
-  getProfile(
-      @ActiveUser() user: UserActiveInterface
-  ) {
-    return this.authService.getProfile(user);
-  }
+  // @Get('profile')
+  // @Auth(Role.ADMIN)
+  // getProfile(
+  //     @ActiveUser() user: UserActiveInterface
+  // ) {
+  //   return this.authService.getProfile(user);
+  // }
   
 }

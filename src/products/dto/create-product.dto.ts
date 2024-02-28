@@ -11,5 +11,7 @@ export class CreateProductDto {
     @IsNumber()
     price: number
 
+    @IsString()
+    category: string
 
 }

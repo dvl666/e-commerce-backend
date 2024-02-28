@@ -18,25 +18,25 @@ export class AuthService {
         const user = await this.usersService.findOneByEmailWithPassword(email);
         const isValidPassword = await bcryptjs.compare(password, user.password)
         if(!isValidPassword) throw new UnauthorizedException('Password is wrong')
-        const payload = { email: user.email, role: user.role }
+        const payload = { role: user.role, userId: user.id }
         return {
             access_token: await this.jwtService.signAsync(payload)
         }   
     }
 
-    async register({email, password }: RegisterDto) {
+    async register({ name, lastName, rut, email, password }: RegisterDto) {
         await this.usersService.userEmailExist(email)
+        await this.usersService.userRutExist(rut)
         await this.usersService.create({
+            name,
+            lastName,
+            rut,
             email,
             password: await bcryptjs.hash(password, 10)
         })
         return {
             email
         }
-    }
-
-    getProfile(user: UserActiveInterface) {
-      return this.usersService.findOneWithEmail(user.email);
     }
 
 }

@@ -6,7 +6,6 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
 import { ActiveUser } from 'src/common/decorators/active.user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
-import { userInfo } from 'os';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Addreses')
@@ -24,11 +23,6 @@ export class AddresController {
     return this.addresService.create(createAddreDto, user);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.addresService.findAll();
-  // }
-
   @Auth(Role.USER)
   @Get()
   findAllUserAddres(
@@ -43,7 +37,6 @@ export class AddresController {
       @Param('id') id: string,
       @ActiveUser() user: UserActiveInterface
     ) {
-    console.log(user)  
     return this.addresService.findOne(+id, user);
   }
 

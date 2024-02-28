@@ -4,8 +4,6 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
-import { ActiveUser } from 'src/common/decorators/active.user.decorator';
-import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Products')
@@ -18,22 +16,18 @@ export class ProductsController {
   @Post()
   create(
       @Body() createProductDto: CreateProductDto,
-      @ActiveUser() user: UserActiveInterface
     ) {
-    return this.productsService.create(createProductDto, user);
+    return this.productsService.create(createProductDto);
   }
 
-  // @Auth(Role.USER)
   @Get()
   findAll() {
     return this.productsService.findAllWithInventory();
   }
 
-  // @Auth(Role.USER)
   @Get(':id')
   findOne(
       @Param('id') id: string,
-      // @ActiveUser() user: UserActiveInterface  
     ) {
     return this.productsService.findOne(+id);
   }
@@ -43,17 +37,15 @@ export class ProductsController {
   update(
       @Param('id') id: string, 
       @Body() updateProductDto: UpdateProductDto,
-      @ActiveUser() user: UserActiveInterface
     ) {
-    return this.productsService.update(+id, updateProductDto, user);
+    return this.productsService.update(+id, updateProductDto);
   }
 
   @Auth(Role.ADMIN)
   @Delete(':id')
   remove(
       @Param('id') id: string,
-      @ActiveUser() user: UserActiveInterface
     ) {
-    return this.productsService.remove(+id, user);
+    return this.productsService.remove(+id);
   }
 }

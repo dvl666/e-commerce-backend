@@ -46,7 +46,6 @@ VALUES
 	(25,'Maipo',7),
 	(26,'Melipilla',7),
 	(27,'Talagante',7),
-	(30,'Cardenal Caro',8),
 	(31,'Curicó',9),
 	(32,'Talca',9),
  	(33,'Linares',9),
@@ -74,9 +73,7 @@ VALUES
 	(55,'Tierra del Fuego',16),
 	(56,'Antártica Chilena',16);
 
-delete 28 29 30
-
-INSERT INTO `comunas` (`id`,`comuna`,`provincia_id`)
+INSERT INTO `commune` (`id`,`name`,`provinceId`)
 VALUES
 	(1,'Arica',1),
 	(2,'Camarones',1),
