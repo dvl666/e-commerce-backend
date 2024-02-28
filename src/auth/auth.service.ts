@@ -4,7 +4,6 @@ import { SingInDto } from './dto/signin.dto';
 import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
 
 @Injectable()
 export class AuthService {
