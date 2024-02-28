@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
-import { Role } from 'src/common/enums/role.enum';
 
 @Injectable()
 export class UsersService {
@@ -34,12 +33,15 @@ export class UsersService {
     return user
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(
+  async update(id: number, updateUserDto: UpdateUserDto, user: UserActiveInterface) {
+    if(id !== user.userId) throw new UnauthorizedException('You are not the owner of this profile' )
+    await this.userRepository.update(
       id, {
         ...updateUserDto
       }
     )
+    const userUpdated = this.findOne(id, user);
+    return userUpdated
   }
 
   remove(id: number) {

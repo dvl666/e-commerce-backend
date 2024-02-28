@@ -35,6 +35,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @Auth(Role.ADMIN)
   findOne(
     @Param('id') id: number,
     @ActiveUser() user: UserActiveInterface
@@ -44,11 +45,17 @@ export class UsersController {
 
   @Auth(Role.USER)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  update(
+      @Param('id') id: string, 
+      @Body() updateUserDto: UpdateUserDto,
+      @ActiveUser() user: UserActiveInterface
+    ) {
+    return this.usersService.update(+id, updateUserDto, user);
   }
 
+  
   @Delete(':id')
+  @Auth(Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
