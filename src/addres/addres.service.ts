@@ -5,20 +5,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Addre } from './entities/addre.entity';
 import { Repository } from 'typeorm';
 import { UserActiveInterface } from 'src/common/interfaces/user.active.interface';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AddresService {
 
   constructor(
     @InjectRepository(Addre)
-    private readonly addreRepository: Repository<Addre>
+    private readonly addreRepository: Repository<Addre>,
+    private readonly userService: UsersService
   ) {}
 
   async create(createAddreDto: CreateAddreDto, user: UserActiveInterface) {
     return await this.addreRepository.save({
       ...createAddreDto,
       communeName: createAddreDto.communeName,
-      userEmail: user.email
+      user: await this.userService.findOneWithEmail(user.email)
     });
   }
 
