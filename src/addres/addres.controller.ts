@@ -14,8 +14,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class AddresController {
   constructor(private readonly addresService: AddresService) {}
 
-  @Auth(Role.USER)
   @Post()
+  @Auth(Role.USER)
   create(
       @Body() createAddreDto: CreateAddreDto,
       @ActiveUser() user: UserActiveInterface
@@ -23,12 +23,18 @@ export class AddresController {
     return this.addresService.create(createAddreDto, user);
   }
 
+  @Get('my-addresses')
   @Auth(Role.USER)
-  @Get()
   findAllUserAddres(
     @ActiveUser() user: UserActiveInterface
   ) {
     return this.addresService.findAllUserAddres(user);
+  }
+  
+  @Get('all-addresses')
+  @Auth(Role.ADMIN)
+  getAllAddresses() {
+    return this.addresService.findAll()
   }
 
   @Auth(Role.USER)
@@ -40,9 +46,8 @@ export class AddresController {
     return this.addresService.findOne(+id, user);
   }
 
-
-  @Auth(Role.USER)
   @Patch(':id')
+  @Auth(Role.USER)
   update(
       @Param('id') id: string, @Body() updateAddreDto: UpdateAddreDto,
       @ActiveUser() user: UserActiveInterface
@@ -50,8 +55,8 @@ export class AddresController {
     return this.addresService.update(+id, updateAddreDto, user);
   }
 
-  @Auth(Role.USER)
   @Delete(':id')
+  @Auth(Role.USER)
   remove(
       @Param('id') id: string,
       @ActiveUser() user: UserActiveInterface  
