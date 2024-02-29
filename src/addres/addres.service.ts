@@ -33,8 +33,12 @@ export class AddresService {
       },
       relations: ['user']
     });
-    if(addresses.length === 0) throw new BadRequestException('Not found')
+    if(addresses.length === 0) throw new BadRequestException('Not found addresses')
     return addresses;
+  }
+
+  async findAll() {
+    return await this.addreRepository.find()
   }
 
   async findOne(id: number, user: UserActiveInterface) {
@@ -49,11 +53,12 @@ export class AddresService {
 
   async update(id: number, updateAddreDto: UpdateAddreDto, user: UserActiveInterface) {
     await this.findOne(id, user)
-    return await this.addreRepository.update(id, {
+    await this.addreRepository.update(id, {
       ...updateAddreDto,
       communeName: updateAddreDto.communeName ,
       postalCode: updateAddreDto.postalCode
     })
+    return await this.findOne(id, user);
   }
 
   async remove(id: number, user: UserActiveInterface) {
