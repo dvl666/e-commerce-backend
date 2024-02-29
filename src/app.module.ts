@@ -12,6 +12,7 @@ import { ProductsModule } from './products/products.module';
 import { SizesModule } from './sizes/sizes.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { ProductCategoryModule } from './product-category/product-category.module';
+import { ShoppingCartsModule } from './shopping-carts/shopping-carts.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { ProductCategoryModule } from './product-category/product-category.modul
     ProductsModule,
     SizesModule,
     InventoryModule,
-    ProductCategoryModule
+    ProductCategoryModule,
+    ShoppingCartsModule
   ],
   controllers: [AppController],
   providers: [AppService],

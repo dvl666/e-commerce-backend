@@ -1,5 +1,6 @@
 import { Inventory } from "src/inventory/entities/inventory.entity";
 import { ProductCategory } from "src/product-category/entities/product-category.entity";
+import { ShoppingCart } from "src/shopping-carts/entities/shopping-cart.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
