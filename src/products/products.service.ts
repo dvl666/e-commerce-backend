@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { ProductCategoryService } from 'src/product-category/product-category.service';
 
 @Injectable()
@@ -61,6 +61,11 @@ export class ProductsService {
       where: { id: id }
     })
     if(!product) throw new NotFoundException('Product whit that id not exist')
+  }
+
+  async findProductsById(productsIds: number[]) {
+    const products = await this.productRepository.findBy({ id: In(productsIds) })
+    return products
   }
 
 }
